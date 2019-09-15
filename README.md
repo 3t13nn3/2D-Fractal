@@ -42,11 +42,11 @@ Clean object files and binary by ```make cleanall```.
 
 ### Mandelbrot
 
-You could use the program with the ```Shaders/mandel.fs``` to play with the Mandelbrot fractal.
+You could use the program with the ```Shaders/mandel.fs``` fragment shader to play with the Mandelbrot fractal.
 
 ### Julia
 
-As the Mandelbrot fractal, you must use the ```Shaders/mandel.fs``` because the Julia one is a derivative of the Mandelbrot fractal.
+As the Mandelbrot fractal, you must use the ```Shaders/mandel.fs``` fragment shader because the Julia one is a derivative of the Mandelbrot fractal.
 To move the Mandelbrot fractal into Julia, you have to use the conditional inclusion set as ```Julia``` by uncommenting the ```#define Julia``` line.
 
 Furthermore, you could change Julia's component (```realJulia``` and ```imaginaryJulia``` variables) value to get an other result (I advice you the [Julia Set Wikipedia page at the "Quadratic polynomials"](https://en.wikipedia.org/wiki/Julia_set) to got some reactives values).
