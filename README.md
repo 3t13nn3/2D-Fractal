@@ -35,7 +35,8 @@ Inputs:
 
 ### Clean files
 
-Clean object files and binary by ```make clean```.
+Clean object files by ```make clean```.
+Clean object files and binary by ```make cleanall```.
 
 ## Available fractales
 
