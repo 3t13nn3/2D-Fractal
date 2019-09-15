@@ -1,5 +1,5 @@
 # Fractal-2D
-A simple program that allow you to play with some 2D fractals made in GLSL.
+A simple program that allow you to play with some 2D fractals made in C++ & GLSL.
 
 This project aims at learn the foundation of fractals and then play with some.
 
