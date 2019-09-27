@@ -9,7 +9,7 @@ void windowRatio(GLFWwindow* window,int width, int height);
 
 /*Variables about windows size, TMP for the aspect ratio*/
 static float WIDTH = 1600,WIDTH_TMP = 1600;
-static float HEIGHT = 1200, HEIGHT_TMP = 1200;
+static float HEIGHT = 1000, HEIGHT_TMP = 1000;
 
 /*Uniform variables*/
 static glm::vec2 resizeRatio = glm::vec2(1,1);
@@ -51,6 +51,23 @@ int main(int argc, char **argv){
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
         std::cout << "Failed to initialize GLAD" << std::endl;
         return -1;
+    }
+
+    /* If screen is initialized with lower resolution than the one set : */
+    {
+    	GLint vp[4];
+		glGetIntegerv( GL_VIEWPORT, vp);
+		unsigned int width, height;
+		width = vp[2];
+   		height = vp[3];
+
+
+		WIDTH = width;
+		WIDTH_TMP = width;
+
+		HEIGHT = height;
+		HEIGHT_TMP = height;
+
     }
 
     /*Initializing shader*/
@@ -97,6 +114,7 @@ int main(int argc, char **argv){
 	        fractalShader.setFloat("Y",y);
 	        fractalShader.setFloat("Zoom",zoom);
 	        fractalShader.setVec2("ratio",resizeRatio);
+	        fractalShader.setVec2("screenSize", glm::vec2(WIDTH, HEIGHT));
 	    
 	        glBindVertexArray(fractalVAO);
 	        glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -127,20 +145,20 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height){
 void processInput(GLFWwindow* window){
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
-
 	
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-			x += 0.05/zoom*2;
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS){
+			x += 0.6/((zoom+600)/50.0f);
+		}
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-			x -= 0.05/zoom*2;
+			x -= 0.6/((zoom+600)/50.0f);
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-			y += 0.05/zoom*2;
+			y += 0.6/((zoom+600)/50.0f);
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-			y -= 0.05/zoom*2;
+			y -= 0.6/((zoom+600)/50.0f);
 	if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
-			zoom*= 1.05;
+			zoom*= 1.025;
 	if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS)
-			zoom /= 1.05;	
+			zoom /= 1.025;	
 }
 
 /*Keep the ratio aspect during resize*/
