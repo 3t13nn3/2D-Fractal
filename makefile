@@ -3,11 +3,21 @@ OBJS	= main.o glad.o
 HEADER	= head.h shader.hpp
 OUT	= fractal
 CC	 = g++
+
 FLAGS	 = -c -O3 -Wall -std=c++17
-LFLAGS	 = -lGL -lGLU -lglfw -ldl
+
+macLFLAGS     = -framework openGL -lglfw
+linuxLFLAGS	 = -lGL -lGLU -lglfw -ldl
+
+OS := $(shell uname)
+
 
 all: $(OBJS)
-	$(CC) $(OBJS) -o $(OUT) $(LFLAGS)
+ifeq ($(OS), Darwin)
+	$(CC) $(OBJS) -o $(OUT) $(macLFLAGS)
+else
+	$(CC) $(OBJS) -o $(OUT) $(linuxLFLAGS)
+endif
 
 main.o: main.cpp
 	$(CC) $(FLAGS) main.cpp 
@@ -20,3 +30,6 @@ clean:
 
 cleanall:
 	rm -f $(OBJS) $(OUT)
+
+test:
+	echo $(OS)

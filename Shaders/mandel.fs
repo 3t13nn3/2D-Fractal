@@ -19,6 +19,7 @@ uniform float X;
 uniform float Y;
 uniform float Zoom;
 uniform vec2 ratio;
+uniform vec2 screenSize;
 
 float iteration = 200;
 float scale 	= 400;
@@ -30,21 +31,24 @@ float scale 	= 400;
 #endif
 
 void main(){
-	/*Keeping our image ratio by multiplying each axes*/
-	vec2 c = (vec2(gl_FragCoord.x*ratio.x,gl_FragCoord.y*ratio.y)/scale -0.5);
+
     vec2 zTmp, z, cTmp;
 	float border;
 	vec4 finalColor;
 	int i;
+
+	//We get the FragCoord and we divide it bit the viewport size to normalize the coord then we center them by removing 0.5
+	vec2 c = (gl_FragCoord.xy/screenSize) - 0.5;
+
+	//Go Back to screenCoord Space
+	c *= screenSize;
+
+	//Add The Zoom 
+	c /= (Zoom + 1000)/10.0;
+
+	//Add the X and Y Offset
+	c += vec2(X, Y);
 	
-
-	/*Zoom scale*/
-	c.x 	   /= Zoom;
-    c.y 	   /= Zoom;
-
-    /*Position to center and regul X & Y velocity*/
-    c.x 	   -= 2 - X*0.5;
-    c.y 	   -= 1 - Y*0.5;
 
     z 			= c;
 	cTmp		= c;
